@@ -7,14 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		248774D6F47F6CCF0BA25AFA /* Pods_Marvel_Explorer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7178D633B9174927C4525D38 /* Pods_Marvel_Explorer.framework */; };
 		AE8013B31D00CF970065663A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8013B21D00CF970065663A /* AppDelegate.swift */; };
 		AE8013B51D00CF970065663A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8013B41D00CF970065663A /* ViewController.swift */; };
 		AE8013B81D00CF970065663A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE8013B61D00CF970065663A /* Main.storyboard */; };
 		AE8013BA1D00CF970065663A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE8013B91D00CF970065663A /* Assets.xcassets */; };
 		AE8013BD1D00CF970065663A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE8013BB1D00CF970065663A /* LaunchScreen.storyboard */; };
+		AEE960AF1D01E12200E14C48 /* MarvelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE960AE1D01E12200E14C48 /* MarvelService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		22B0B6EAC23E8061EB236892 /* Pods-Marvel Explorer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marvel Explorer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Marvel Explorer/Pods-Marvel Explorer.debug.xcconfig"; sourceTree = "<group>"; };
+		7178D633B9174927C4525D38 /* Pods_Marvel_Explorer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Marvel_Explorer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		953631BDFA2A90F1A3C8AA4D /* Pods-Marvel Explorer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marvel Explorer.release.xcconfig"; path = "Pods/Target Support Files/Pods-Marvel Explorer/Pods-Marvel Explorer.release.xcconfig"; sourceTree = "<group>"; };
 		AE8013AF1D00CF970065663A /* Marvel Explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Marvel Explorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE8013B21D00CF970065663A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AE8013B41D00CF970065663A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +27,7 @@
 		AE8013B91D00CF970065663A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE8013BC1D00CF970065663A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AE8013BE1D00CF970065663A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AEE960AE1D01E12200E14C48 /* MarvelService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarvelService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				248774D6F47F6CCF0BA25AFA /* Pods_Marvel_Explorer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +47,8 @@
 			children = (
 				AE8013B11D00CF970065663A /* Marvel Explorer */,
 				AE8013B01D00CF970065663A /* Products */,
+				E321A5974EAE52AB86E1954D /* Pods */,
+				D3FBA89C9E25D81B5ADD083D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,8 +69,26 @@
 				AE8013B91D00CF970065663A /* Assets.xcassets */,
 				AE8013BB1D00CF970065663A /* LaunchScreen.storyboard */,
 				AE8013BE1D00CF970065663A /* Info.plist */,
+				AEE960AE1D01E12200E14C48 /* MarvelService.swift */,
 			);
 			path = "Marvel Explorer";
+			sourceTree = "<group>";
+		};
+		D3FBA89C9E25D81B5ADD083D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7178D633B9174927C4525D38 /* Pods_Marvel_Explorer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E321A5974EAE52AB86E1954D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				22B0B6EAC23E8061EB236892 /* Pods-Marvel Explorer.debug.xcconfig */,
+				953631BDFA2A90F1A3C8AA4D /* Pods-Marvel Explorer.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +98,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AE8013C11D00CF970065663A /* Build configuration list for PBXNativeTarget "Marvel Explorer" */;
 			buildPhases = (
+				35DD62D2A351E800138B60F7 /* 📦 Check Pods Manifest.lock */,
 				AE8013AB1D00CF970065663A /* Sources */,
 				AE8013AC1D00CF970065663A /* Frameworks */,
 				AE8013AD1D00CF970065663A /* Resources */,
+				EA77EAA17C619ECFC13F9BDF /* 📦 Embed Pods Frameworks */,
+				1F96C30B8C838A86F7F30D7A /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -130,12 +160,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1F96C30B8C838A86F7F30D7A /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Marvel Explorer/Pods-Marvel Explorer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		35DD62D2A351E800138B60F7 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EA77EAA17C619ECFC13F9BDF /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Marvel Explorer/Pods-Marvel Explorer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AE8013AB1D00CF970065663A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				AE8013B51D00CF970065663A /* ViewController.swift in Sources */,
+				AEE960AF1D01E12200E14C48 /* MarvelService.swift in Sources */,
 				AE8013B31D00CF970065663A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,6 +328,7 @@
 		};
 		AE8013C21D00CF970065663A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22B0B6EAC23E8061EB236892 /* Pods-Marvel Explorer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Marvel Explorer/Info.plist";
@@ -260,6 +340,7 @@
 		};
 		AE8013C31D00CF970065663A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 953631BDFA2A90F1A3C8AA4D /* Pods-Marvel Explorer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Marvel Explorer/Info.plist";
@@ -288,6 +369,7 @@
 				AE8013C31D00CF970065663A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
