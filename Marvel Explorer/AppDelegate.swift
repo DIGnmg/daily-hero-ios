@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        MarvelService.sharedInstance.initWithKeys("2536b911c2b255811644b1eeec72245a", privateKey: "248baec13b6e23bc9ed5a89c530f707303292c74")
+        
         return true
     }
 
