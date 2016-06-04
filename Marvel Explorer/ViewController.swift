@@ -14,12 +14,20 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        MarvelService.sharedInstance.get("characters").query("name", value: "Spider-Man").call()
+        MarvelService.sharedInstance.get("characters").query("name", value: "Spider-Man").call() {
+            (char: Character) in
+                self.printName(char.name!)
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func printName(name: String) -> Void {
+        print(name)
     }
     
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CryptoSwift
 
 class MarvelService {
     static let sharedInstance = MarvelService()
@@ -44,9 +45,9 @@ class MarvelService {
         return self
     }
     
-    internal func call() -> Void {
+    internal func call(callback: (Character) -> Void) -> Void {
         let url = createMarvelApiUrlString()
-        makeApiCall(url)
+        makeApiCall(url, callback: callback)
     }
     
     internal func query(key: String, value: String) -> MarvelService {
@@ -88,11 +89,11 @@ class MarvelService {
         // Query
         let query = makeQueryString()
         
-        let marvelAPiString = "http://gateway.marvel.com/v1/public/\(scope!)?\(query)&ts=\(timestamp)&apikey=\(self._publicKey)a&hash=\(hash)"
+        let marvelAPiString = "http://gateway.marvel.com/v1/public/\(scope!)?\(query)&ts=\(timestamp)&apikey=\(self._publicKey!)&hash=\(hash)"
         return marvelAPiString
     }
     
-    internal func makeApiCall(url: String?) -> Void {
+    internal func makeApiCall(url: String?, callback: (Character) -> Void) -> Void {
         let newUrl: NSURL
         let session = NSURLSession.sharedSession()
         
@@ -107,7 +108,14 @@ class MarvelService {
                         let json = try NSJSONSerialization.JSONObjectWithData(urlConent, options: NSJSONReadingOptions.AllowFragments)
                         
                         if let data = json["data"] as? Dictionary<String, AnyObject> {
-                            print(data["results"])
+                            let results = data["results"] as? [Dictionary<String, AnyObject>]
+                            for item in results!{
+                                if let id = item["id"] as? Int, let name = item["name"] as? String, let description = item["description"] as? String, let resourceURI = item["resourceURI"] as? String {
+                                    
+                                    let charModel = Character.init(id: id, name: name, description: description, resourceURI: resourceURI)
+                                    callback(charModel)
+                                }
+                            }
                         }
                         
                     } catch {
