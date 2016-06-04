@@ -13,6 +13,7 @@
 		AE8013B81D00CF970065663A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE8013B61D00CF970065663A /* Main.storyboard */; };
 		AE8013BA1D00CF970065663A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE8013B91D00CF970065663A /* Assets.xcassets */; };
 		AE8013BD1D00CF970065663A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE8013BB1D00CF970065663A /* LaunchScreen.storyboard */; };
+		AE9F5ED01D03775F00634A38 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9F5ECF1D03775F00634A38 /* Character.swift */; };
 		AEE960AF1D01E12200E14C48 /* MarvelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE960AE1D01E12200E14C48 /* MarvelService.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		AE8013B91D00CF970065663A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE8013BC1D00CF970065663A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AE8013BE1D00CF970065663A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AE9F5ECF1D03775F00634A38 /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		AEE960AE1D01E12200E14C48 /* MarvelService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarvelService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,6 +65,7 @@
 		AE8013B11D00CF970065663A /* Marvel Explorer */ = {
 			isa = PBXGroup;
 			children = (
+				AE9F5ECE1D03770B00634A38 /* Models */,
 				AE8013B21D00CF970065663A /* AppDelegate.swift */,
 				AE8013B41D00CF970065663A /* ViewController.swift */,
 				AE8013B61D00CF970065663A /* Main.storyboard */,
@@ -72,6 +75,14 @@
 				AEE960AE1D01E12200E14C48 /* MarvelService.swift */,
 			);
 			path = "Marvel Explorer";
+			sourceTree = "<group>";
+		};
+		AE9F5ECE1D03770B00634A38 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AE9F5ECF1D03775F00634A38 /* Character.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		D3FBA89C9E25D81B5ADD083D /* Frameworks */ = {
@@ -216,6 +227,7 @@
 				AE8013B51D00CF970065663A /* ViewController.swift in Sources */,
 				AEE960AF1D01E12200E14C48 /* MarvelService.swift in Sources */,
 				AE8013B31D00CF970065663A /* AppDelegate.swift in Sources */,
+				AE9F5ED01D03775F00634A38 /* Character.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
