@@ -45,7 +45,7 @@ class MarvelService {
         return self
     }
     
-    internal func call(callback: (Character) -> Void) -> Void {
+    internal func call(callback: ([Character]) -> Void) -> Void {
         let url = createMarvelApiUrlString()
         makeApiCall(url, callback: callback)
     }
@@ -82,18 +82,22 @@ class MarvelService {
     internal func createMarvelApiUrlString() -> String {
         // Create TimeStamp
         let timestamp = round(NSDate().timeIntervalSince1970*1000).hashValue
+        
         // Create Hash
         let hash = createHash(String(timestamp))
+        
         // Scope
         let scope = _currentScope
+        
         // Query
         let query = makeQueryString()
         
         let marvelAPiString = "http://gateway.marvel.com/v1/public/\(scope!)?\(query)&ts=\(timestamp)&apikey=\(self._publicKey!)&hash=\(hash)"
+        
         return marvelAPiString
     }
     
-    internal func makeApiCall(url: String?, callback: (Character) -> Void) -> Void {
+    internal func makeApiCall(url: String?, callback: ([Character]) -> Void) -> Void {
         let newUrl: NSURL
         let session = NSURLSession.sharedSession()
         
@@ -108,14 +112,19 @@ class MarvelService {
                         let json = try NSJSONSerialization.JSONObjectWithData(urlConent, options: NSJSONReadingOptions.AllowFragments)
                         
                         if let data = json["data"] as? Dictionary<String, AnyObject> {
-                            let results = data["results"] as? [Dictionary<String, AnyObject>]
-                            for item in results!{
+                            
+                            let list = data["results"] as! [Dictionary<String, AnyObject>]
+                            var characters: [Character] = [Character]()
+                            for item in list {
                                 if let id = item["id"] as? Int, let name = item["name"] as? String, let description = item["description"] as? String, let resourceURI = item["resourceURI"] as? String {
                                     
                                     let charModel = Character.init(id: id, name: name, description: description, resourceURI: resourceURI)
-                                    callback(charModel)
+                                    characters.append(charModel)
                                 }
                             }
+                            dispatch_async(dispatch_get_main_queue(), {
+                                callback(characters)
+                            })
                         }
                         
                     } catch {
