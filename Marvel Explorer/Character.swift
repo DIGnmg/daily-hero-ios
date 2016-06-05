@@ -16,33 +16,45 @@ class Character {
     private var _name: String?
     //    description (string, optional): A short bio or description of the character.
     private var _description: String?
-    //    modified (Date, optional): The date the resource was most recently modified.
-//    private var _modified: NSDate?
     //    resourceURI (string, optional): The canonical URL identifier for this resource.
     private var _resourceURI: String?
-    //    urls (Array[Url], optional): A set of public web site URLs for the resource.
-//    private var _urls: [String]?
     //    thumbnail (Image, optional): The representative image for this character.
-//    private var thumbnail: 
-    //    comics (ComicList, optional): A resource list containing comics which feature this character.
-//    private var comics: String?
-    //    stories (StoryList, optional): A resource list of stories in which this character appears.
-//    private var stories: String?
-    //    events (EventList, optional): A resource list of events in which this character appears.
-//    private var events: String?
-    //    series (SeriesList, optional): A resource list of series in which this character appears.
-//    private var series: String?
+    private var _thumbnail: Dictionary<String, String>?
     
+    var id: Int? {
+        return self._id
+    }
     
     var name: String? {
         return self._name
     }
     
-    init(id: Int?, name: String?, description: String?, resourceURI: String?){
+    var description: String? {
+        return self._description
+    }
+    
+    var resourceURI: String? {
+        return self._resourceURI
+    }
+    
+    var thumbnail: Dictionary<String, String>? {
+        return self._thumbnail
+    }
+    
+    init(id: Int?, name: String?, description: String?, resourceURI: String?, thumbnail: Dictionary<String, String>?){
         self._id = id
         self._name = name
         self._description = description
         self._resourceURI = resourceURI
+        self._thumbnail = thumbnail
+    }
+    
+    func getDataFromUrl(completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
+        let urlPath = "\(self._thumbnail!["path"]!).\(self._thumbnail!["extension"]!)"
+        let url = NSURL(string: urlPath)
+        NSURLSession.sharedSession().dataTaskWithURL(url!) { (data, response, error) in
+            completion(data: data, response: response, error: error)
+            }.resume()
     }
     
 }

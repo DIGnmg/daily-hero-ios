@@ -116,9 +116,9 @@ class MarvelService {
                             let list = data["results"] as! [Dictionary<String, AnyObject>]
                             var characters: [Character] = [Character]()
                             for item in list {
-                                if let id = item["id"] as? Int, let name = item["name"] as? String, let description = item["description"] as? String, let resourceURI = item["resourceURI"] as? String {
+                                if let id = item["id"] as? Int, let name = item["name"] as? String, let description = item["description"] as? String, let resourceURI = item["resourceURI"] as? String, let thumbnail = item["thumbnail"] as? Dictionary<String, String> {
                                     
-                                    let charModel = Character.init(id: id, name: name, description: description, resourceURI: resourceURI)
+                                    let charModel = Character.init(id: id, name: name, description: description, resourceURI: resourceURI, thumbnail: thumbnail)
                                     characters.append(charModel)
                                 }
                             }
