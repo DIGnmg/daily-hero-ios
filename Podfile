@@ -5,5 +5,6 @@ use_frameworks!
 
 target 'Marvel Explorer' do
   pod 'CryptoSwift'
+  pod 'UIImageColors', '~> 1.0'
 end
 

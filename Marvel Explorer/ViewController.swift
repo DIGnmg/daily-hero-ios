@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import UIImageColors
 
 class ViewController: UIViewController {
     
     @IBOutlet var charNameLabel: UILabel!
+    @IBOutlet weak var charImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +46,10 @@ class ViewController: UIViewController {
                 print(response?.suggestedFilename ?? "")
                 print("Download Finished")
                 self.charImage.image = UIImage(data: data)
+                
+                self.charImage.image!.getColors({ (colors) in
+                    self.view.backgroundColor = colors.backgroundColor
+                })
             }
         }
     }
