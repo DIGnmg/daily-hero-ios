@@ -12,7 +12,6 @@ class ViewController: UIViewController {
     
     @IBOutlet var charNameLabel: UILabel!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -34,6 +33,19 @@ class ViewController: UIViewController {
     
     func printName(char: Character) -> Void {
         charNameLabel.text = char.name
+        downloadImage(char)
+    }
+    
+    func downloadImage(char: Character){
+        print("Download Started")
+        char.getDataFromUrl() { (data, response, error)  in
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                guard let data = data where error == nil else { return }
+                print(response?.suggestedFilename ?? "")
+                print("Download Finished")
+                self.charImage.image = UIImage(data: data)
+            }
+        }
     }
     
 }
