@@ -2,7 +2,7 @@
 //  CharacterUIImageView.swift
 //  Marvel Explorer
 //
-//  Created by Nathanael Gethers on 6/4/16.
+//  Created by Adam Reeves on 6/4/16.
 //  Copyright © 2016 dignmg. All rights reserved.
 //
 

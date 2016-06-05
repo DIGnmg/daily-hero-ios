@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,21 +18,84 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qz9-GM-jCR">
-                                <rect key="frame" x="240" y="161" width="240" height="128"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKj-kX-HOd">
-                                <rect key="frame" x="279" y="56" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Character Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4g-2p-cLX">
+                                <rect key="frame" x="20" y="366" width="560" height="62"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="62" id="LB6-fe-xNU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="36"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RvD-KW-Pxh">
+                                <rect key="frame" x="60" y="429" width="480" height="130"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="hzs-17-ofy"/>
+                                </constraints>
+                                <string key="text">The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. </string>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DAILY HERO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ypi-5K-sJU">
+                                <rect key="frame" x="20" y="28" width="560" height="71"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="71" id="MCA-Pl-J9t"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="48"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AN APP BY NATHANEAL GETHERS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qxi-Di-8jl">
+                                <rect key="frame" x="20" y="88" width="560" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="HWS-uR-K3g"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0zu-S9-ERv">
+                                <rect key="frame" x="188" y="134" width="224" height="224"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eWH-aa-1Qy" customClass="CharacterUIImageView" customModule="Marvel_Explorer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="224" height="224"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="224" id="m9u-WH-Ox4"/>
+                                    <constraint firstAttribute="height" constant="224" id="ykY-lg-AQx"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.01176470588" green="0.20784313730000001" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="RvD-KW-Pxh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="40" id="61b-mw-F7Q"/>
+                            <constraint firstItem="Qxi-Di-8jl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="90W-Ts-hlO"/>
+                            <constraint firstItem="0zu-S9-ERv" firstAttribute="top" secondItem="Qxi-Di-8jl" secondAttribute="bottom" constant="25" id="A1M-Xl-la0"/>
+                            <constraint firstItem="Ypi-5K-sJU" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Exv-5E-RbJ"/>
+                            <constraint firstItem="g4g-2p-cLX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="LVP-XK-Zec"/>
+                            <constraint firstItem="RvD-KW-Pxh" firstAttribute="top" secondItem="g4g-2p-cLX" secondAttribute="bottom" constant="1" id="OGc-cP-JYD"/>
+                            <constraint firstItem="Qxi-Di-8jl" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="SNs-WO-44v"/>
+                            <constraint firstItem="Ypi-5K-sJU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Soc-tU-oEP"/>
+                            <constraint firstItem="0zu-S9-ERv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YZP-Ut-MqP"/>
+                            <constraint firstItem="g4g-2p-cLX" firstAttribute="top" secondItem="0zu-S9-ERv" secondAttribute="bottom" constant="8" id="YaN-eN-MZj"/>
+                            <constraint firstItem="g4g-2p-cLX" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="YvC-Jz-1Ac"/>
+                            <constraint firstItem="Ypi-5K-sJU" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="q1F-ZU-PuQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="RvD-KW-Pxh" secondAttribute="trailing" constant="40" id="sdf-dw-Zyt"/>
+                            <constraint firstItem="Qxi-Di-8jl" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="68" id="tpR-um-0Nj"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="charImage" destination="qz9-GM-jCR" id="3AJ-4g-gWk"/>
-                        <outlet property="charNameLabel" destination="SKj-kX-HOd" id="FN2-tl-ywj"/>
+                        <outlet property="charDescLabel" destination="RvD-KW-Pxh" id="E0z-3S-wlf"/>
+                        <outlet property="charImage" destination="eWH-aa-1Qy" id="B7l-fJ-D7K"/>
+                        <outlet property="charNameLabel" destination="g4g-2p-cLX" id="ZUW-xe-Bd4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
