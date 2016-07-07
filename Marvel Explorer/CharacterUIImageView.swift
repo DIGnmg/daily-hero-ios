@@ -9,7 +9,7 @@
 import UIKit
 
 class CharacterUIImageView: UIImageView {
-
+    
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -23,6 +23,11 @@ class CharacterUIImageView: UIImageView {
         
         self.layer.cornerRadius = self.frame.size.height / 2
         self.clipsToBounds = true
+    }
+    
+    func createColorBorder(color: UIColor) -> Void {
+        self.layer.borderColor = color.CGColor
+        self.layer.borderWidth = 1.5
     }
     
 }

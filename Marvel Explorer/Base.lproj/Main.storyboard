@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hYE-yf-odd">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Character-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Marvel_Explorer" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,20 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Character Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4g-2p-cLX">
-                                <rect key="frame" x="20" y="366" width="560" height="62"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" none="YES"/>
-                                </accessibility>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="62" id="LB6-fe-xNU"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="36"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RvD-KW-Pxh">
-                                <rect key="frame" x="60" y="429" width="480" height="130"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RvD-KW-Pxh" customClass="HeroDescriptionStyle" customModule="Marvel_Explorer" customModuleProvider="target">
+                                <rect key="frame" x="60" y="429" width="480" height="151"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" none="YES"/>
                                 </accessibility>
@@ -39,9 +27,14 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="hzs-17-ofy"/>
                                 </constraints>
                                 <string key="text">The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. </string>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="hzs-17-ofy"/>
+                                    </mask>
+                                </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DAILY HERO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ypi-5K-sJU">
                                 <rect key="frame" x="20" y="28" width="560" height="71"/>
@@ -52,7 +45,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AN APP BY NATHANEAL GETHERS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qxi-Di-8jl">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AN APP BY NATHANAEL GETHERS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qxi-Di-8jl">
                                 <rect key="frame" x="20" y="88" width="560" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="HWS-uR-K3g"/>
@@ -73,6 +66,18 @@
                                     <constraint firstAttribute="height" constant="224" id="ykY-lg-AQx"/>
                                 </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Character Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4g-2p-cLX">
+                                <rect key="frame" x="20" y="366" width="560" height="62"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="62" id="LB6-fe-xNU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="36"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.01176470588" green="0.20784313730000001" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -81,6 +86,7 @@
                             <constraint firstItem="0zu-S9-ERv" firstAttribute="top" secondItem="Qxi-Di-8jl" secondAttribute="bottom" constant="25" id="A1M-Xl-la0"/>
                             <constraint firstItem="Ypi-5K-sJU" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Exv-5E-RbJ"/>
                             <constraint firstItem="g4g-2p-cLX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="LVP-XK-Zec"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="RvD-KW-Pxh" secondAttribute="bottom" constant="20" id="MGB-fa-cDI"/>
                             <constraint firstItem="RvD-KW-Pxh" firstAttribute="top" secondItem="g4g-2p-cLX" secondAttribute="bottom" constant="1" id="OGc-cP-JYD"/>
                             <constraint firstItem="Qxi-Di-8jl" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="SNs-WO-44v"/>
                             <constraint firstItem="Ypi-5K-sJU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Soc-tU-oEP"/>
@@ -92,6 +98,7 @@
                             <constraint firstItem="Qxi-Di-8jl" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="68" id="tpR-um-0Nj"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Character" id="Foj-u6-uh6"/>
                     <connections>
                         <outlet property="charDescLabel" destination="RvD-KW-Pxh" id="E0z-3S-wlf"/>
                         <outlet property="charImage" destination="eWH-aa-1Qy" id="B7l-fJ-D7K"/>
@@ -100,7 +107,100 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="280" y="337"/>
+            <point key="canvasLocation" x="826" y="-94"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="zoD-tu-9x4">
+            <objects>
+                <viewController id="M9i-wv-8bc" customClass="ComicListVC" customModule="Marvel_Explorer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QcY-2A-bFa"/>
+                        <viewControllerLayoutGuide type="bottom" id="7ik-0H-0cI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Cjy-XV-Myw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="228" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9dP-c9-WgN">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ComicCell" rowHeight="228" id="dT6-Zx-a31" customClass="ComicCell" customModule="Marvel_Explorer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="228"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dT6-Zx-a31" id="H9h-eK-nFh">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="227.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dd3-Up-SXt">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="227.5"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NPh-UL-2jh">
+                                                    <rect key="frame" x="8" y="169" width="584" height="50"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="NPh-UL-2jh" firstAttribute="leading" secondItem="H9h-eK-nFh" secondAttribute="leadingMargin" id="0nX-GB-psu"/>
+                                                <constraint firstItem="Dd3-Up-SXt" firstAttribute="top" secondItem="H9h-eK-nFh" secondAttribute="top" id="1Ce-Ta-8m6"/>
+                                                <constraint firstItem="NPh-UL-2jh" firstAttribute="trailing" secondItem="H9h-eK-nFh" secondAttribute="trailingMargin" id="2Iv-Sq-wie"/>
+                                                <constraint firstAttribute="trailing" secondItem="Dd3-Up-SXt" secondAttribute="trailing" id="Y3t-OR-ykg"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="NPh-UL-2jh" secondAttribute="bottom" constant="0.5" id="chU-od-xVi"/>
+                                                <constraint firstItem="Dd3-Up-SXt" firstAttribute="leading" secondItem="H9h-eK-nFh" secondAttribute="leading" id="j6R-6n-aQ5"/>
+                                                <constraint firstItem="NPh-UL-2jh" firstAttribute="centerY" secondItem="H9h-eK-nFh" secondAttribute="centerY" id="s4J-oy-lV7"/>
+                                                <constraint firstAttribute="bottom" secondItem="Dd3-Up-SXt" secondAttribute="bottom" id="znb-xI-WAh"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="s4J-oy-lV7"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.97647058819999999" green="0.3803921569" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="comicImg" destination="Dd3-Up-SXt" id="Yup-kg-8j1"/>
+                                            <outlet property="comicTitleLabel" destination="NPh-UL-2jh" id="pM3-VK-VyZ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9dP-c9-WgN" firstAttribute="top" secondItem="Cjy-XV-Myw" secondAttribute="top" id="HIE-yj-DVU"/>
+                            <constraint firstItem="9dP-c9-WgN" firstAttribute="leading" secondItem="Cjy-XV-Myw" secondAttribute="leading" id="jP0-iy-mKj"/>
+                            <constraint firstAttribute="trailing" secondItem="9dP-c9-WgN" secondAttribute="trailing" id="mhH-pE-ETx"/>
+                            <constraint firstAttribute="bottom" secondItem="9dP-c9-WgN" secondAttribute="bottom" id="xRE-gN-N9w"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="BBo-h4-aWW"/>
+                    <connections>
+                        <outlet property="tableView" destination="9dP-c9-WgN" id="YYI-F1-DmV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U0I-Qk-woM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="826" y="642"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="Llc-O3-znX">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="hYE-yf-odd" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="SgT-Dx-sg3">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="LkX-AJ-YRm"/>
+                        <segue destination="M9i-wv-8bc" kind="relationship" relationship="viewControllers" id="ULv-kY-WV6"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MeO-MY-Xq7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="58" y="350"/>
         </scene>
     </scenes>
 </document>

@@ -7,134 +7,142 @@
 //
 
 import Foundation
-import CryptoSwift
+import UIKit
 
 class MarvelService {
+    
     static let sharedInstance = MarvelService()
     
-    private var _privateKey: String?
-    private var _publicKey: String?
-    private var _currentScope: String?
-    private var _queryArray = [Dictionary<String, AnyObject>]()
+    private var _character = Character()
     
-    var publicKey: String? {
-        get {
-            return _publicKey
-        }
-        set(newKey) {
-            _publicKey = newKey
-        }
+    private var _loadedComics = [Comic]()
+    
+    var loadedComics: [Comic] {
+        return _loadedComics
     }
     
-    var privateKey: String? {
-        get {
-            return _privateKey
-        }
-        set(newKey) {
-            _privateKey = newKey
-        }
+    var loadedCharacter: Character {
+        return _character
     }
     
-    internal func initWithKeys(publicKey: String?, privateKey: String?) -> Void {
-        self._publicKey = publicKey
-        self._privateKey = privateKey
+    func getChar() -> Character {
+        return self._character
     }
     
-    internal func get(scope: String) -> MarvelService {
-        self._currentScope = scope
-        return self
-    }
-    
-    internal func call(callback: ([Character]) -> Void) -> Void {
-        let url = createMarvelApiUrlString()
-        makeApiCall(url, callback: callback)
-    }
-    
-    internal func query(key: String, value: String) -> MarvelService {
-        var queryDict = Dictionary<String, AnyObject>()
-        queryDict[key] = value
-        self._queryArray.append(queryDict)
-        return self
-    }
-    
-    internal func makeQueryString() -> String {
-        var currentQueryString = ""
-        for query in _queryArray {
-            var tempQ = ""
-//            "name=Spider-Man&limit=10"
-            for key in query.keys {
-                print(key)
-                tempQ = "\(key)=\(query[key]!)"
-                currentQueryString += tempQ
-            }
-        }
-        return currentQueryString
-    }
-    
-    internal func createHash(ts: String) -> String {
-        
-        let stringToHash = ts + self._privateKey! + self._publicKey!
-        
-        let hash = stringToHash.md5()
-        return hash
-    }
-    
-    internal func createMarvelApiUrlString() -> String {
-        // Create TimeStamp
-        let timestamp = round(NSDate().timeIntervalSince1970*1000).hashValue
-        
-        // Create Hash
-        let hash = createHash(String(timestamp))
-        
-        // Scope
-        let scope = _currentScope
-        
-        // Query
-        let query = makeQueryString()
-        
-        let marvelAPiString = "http://gateway.marvel.com/v1/public/\(scope!)?\(query)&ts=\(timestamp)&apikey=\(self._publicKey!)&hash=\(hash)"
-        
-        return marvelAPiString
-    }
-    
-    internal func makeApiCall(url: String?, callback: ([Character]) -> Void) -> Void {
-        let newUrl: NSURL
-        let session = NSURLSession.sharedSession()
-        
-        if let url = url {
-            
-            newUrl = NSURL(string: url)!
-            
-            let task = session.dataTaskWithURL(newUrl) { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
-                if let urlConent = data {
-                    do {
-                        
-                        let json = try NSJSONSerialization.JSONObjectWithData(urlConent, options: NSJSONReadingOptions.AllowFragments)
-                        
-                        if let data = json["data"] as? Dictionary<String, AnyObject> {
-                            
-                            let list = data["results"] as! [Dictionary<String, AnyObject>]
-                            var characters: [Character] = [Character]()
-                            for item in list {
-                                if let id = item["id"] as? Int, let name = item["name"] as? String, let description = item["description"] as? String, let resourceURI = item["resourceURI"] as? String, let thumbnail = item["thumbnail"] as? Dictionary<String, String> {
-                                    
-                                    let charModel = Character.init(id: id, name: name, description: description, resourceURI: resourceURI, thumbnail: thumbnail)
-                                    characters.append(charModel)
-                                }
-                            }
-                            dispatch_async(dispatch_get_main_queue(), {
-                                callback(characters)
-                            })
-                        }
-                        
-                    } catch {
-                        print("There was an error")
-                    }
+    func getDailyHero(callback: (Character) -> Void) -> Void {
+        self.getHero() { (char: Character) in
+            callback(self._character)
+            self.getComics() { (comics: [Comic]) in
+                if comics.count > 0 {
+                    self._character.addComics(comics)
                 }
             }
-            
-            task.resume()
         }
     }
     
+    func getComics(callback: (([Comic]) -> Void)) -> Void {
+        let urlString = "http://localhost:5000/daily-comics"
+        self.makeCall(urlString) { (data, response, error)  in
+            if let dataContent = data {
+                do {
+                    
+                    let json = try NSJSONSerialization.JSONObjectWithData(dataContent, options: NSJSONReadingOptions.AllowFragments)
+                    
+                    if let data = json as? Dictionary<String, AnyObject> {
+                        if let list = data["data"] as? [Dictionary<String, AnyObject>] {
+                            for item in list {
+                                if let id = item["id"] as? Int, let prices = item["prices"] as? [Dictionary<String, AnyObject>], let name = item["title"] as? String, let description = item["description"] as? String, let resourceURI = item["resourceURI"] as? String, let thumbnail = item["thumbnail"] as? Dictionary<String, String> {
+                                    
+                                    let comic = Comic(prices: prices, id: id, name: name, description: description, resourceURI: resourceURI, thumbnail: thumbnail)
+                                    
+                                    comic.getDataFromUrl({ (data, response, error) in
+                                        self._loadedComics.append(comic)
+                                    })
+                                    
+                                    dispatch_async(dispatch_get_main_queue(), {
+                                        callback(self._loadedComics)
+                                    })
+                                }
+                            }
+                        }
+                    } else {
+                        print("no data")
+                    }
+                    
+                } catch {
+                    print("Boom You Failed")
+                }
+            }
+        }
+    }
+    
+    func getHero(callback: ((Character) -> Void )) -> Void {
+        let urlString = "http://localhost:5000/daily"
+        self.makeCall(urlString) { (data, response, error)  in
+            if let dataContent = data {
+                do {
+
+                    let json = try NSJSONSerialization.JSONObjectWithData(dataContent, options: NSJSONReadingOptions.AllowFragments)
+
+                    if let data = json as? Dictionary<String, AnyObject> {
+                        if let apiData = data["data"] {
+                            var charModel: Character = Character()
+                            if let item = apiData[0] {
+                                if let id = item["id"] as? Int, let name = item["name"] as? String, let description = item["description"] as? String, let resourceURI = item["resourceURI"] as? String, let thumbnail = item["thumbnail"] as? Dictionary<String, String> {
+
+                                    charModel = Character(id: id, name: name, description: description, resourceURI: resourceURI, thumbnail: thumbnail)
+                                }
+                            }
+                            self._character = charModel
+                            
+                            dispatch_async(dispatch_get_main_queue(), {
+                                callback(self._character)
+                            })
+                        }
+                    }
+                    
+                } catch {
+                    print("Boom You Failed")
+                }
+            }
+        }
+    }
+    
+    func makeCall(url: String, callback: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
+        let url = NSURL(string: url)
+        NSURLSession.sharedSession().dataTaskWithURL(url!) { (data, response, error) in
+            callback(data: data, response: response, error: error)
+            }.resume()
+    }
+    
+//    internal func makeCall(url: String, callback: ((AnyObject) -> Void)) -> Void {
+//        let url = NSURL(string: url)
+//        
+//        let session = NSURLSession.sharedSession()
+//        session.dataTaskWithURL(url!) { (data: NSData?, response: NSURLResponse?, error: NSError?) in
+//            if let dataContent = data {
+//                do {
+//                    
+//                    let json = try NSJSONSerialization.JSONObjectWithData(dataContent, options: NSJSONReadingOptions.AllowFragments)
+//                    
+//                    if let data = json as? Dictionary<String, AnyObject> {
+//                        let apiData = data["data"]
+//                        var charModel: Character = Character()
+//                        if let item = apiData![0] {
+//                            if let id = item["id"] as? Int, let name = item["name"] as? String, let description = item["description"] as? String, let resourceURI = item["resourceURI"] as? String, let thumbnail = item["thumbnail"] as? Dictionary<String, String> {
+//                                
+//                                charModel = Character(id: id, name: name, description: description, resourceURI: resourceURI, thumbnail: thumbnail)
+//                            }
+//                        }
+//                        dispatch_async(dispatch_get_main_queue(), {
+//                            callback(charModel)
+//                        })
+//                    }
+//                    
+//                } catch {
+//                    print("Boom You Failed")
+//                }
+//            }
+//        }.resume()
+//    }
 }
