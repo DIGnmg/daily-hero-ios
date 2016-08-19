@@ -10,12 +10,19 @@ import UIKit
 
 class ComicListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    private let comicZoomPresentAnimationController = ComicZoomPresentAnimationController()
+    private let comicZoomDismissAnimationController = ZoomDismissAnimationController()
+    
     @IBOutlet var tableView: UITableView!
     
     var comicList = [Comic]()
+    let comicListSegueIdentifier = "ComicListSegue"
+    var selectedItemRect = CGRect()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.hidden = false
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -27,6 +34,7 @@ class ComicListVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         super.viewWillAppear(animated)
         
         comicList = MarvelService.sharedInstance.loadedComics
+        tableView.reloadData()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -60,15 +68,57 @@ class ComicListVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         }
         return 0
     }
+    
+    // MARK: - UITableViewDelegate Methods
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    // MARK: - Animate Table View Cell
+    
+//    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+//        cell.alpha = 0
+//        let rorationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
+//        cell.layer.transform = rorationTransform
+//        
+//        UIView.animateWithDuration(0.4) {
+//            cell.alpha = 1
+//            cell.layer.transform = CATransform3DIdentity
+//        }
+//    }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == comicListSegueIdentifier, let destination = segue.destinationViewController as? ComicDetailVC, comicIndex = tableView.indexPathForSelectedRow?.row {
+            selectedItemRect = setSelectedListItemRect()
+            destination.comic = comicList[comicIndex]
+            destination.transitioningDelegate = self
+        }
     }
-    */
+    
+    func setSelectedListItemRect() -> CGRect {
+        let selectedRow = tableView.indexPathForSelectedRow
+        let rectOfRow = tableView.rectForRowAtIndexPath(selectedRow!)
+        
+        return tableView.convertRect(rectOfRow, toView: self.view)
+    }
 
+}
+
+extension ComicListVC: UIViewControllerTransitioningDelegate {
+    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        comicZoomPresentAnimationController.originFrame = selectedItemRect
+        return comicZoomPresentAnimationController
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        comicZoomDismissAnimationController.destinationFrame = selectedItemRect
+        return comicZoomDismissAnimationController
+    }
 }

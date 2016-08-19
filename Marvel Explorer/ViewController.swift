@@ -19,20 +19,24 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
 		// Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.hidden = true
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.translucent = true
+        
         MarvelService.sharedInstance.getDailyHero({ (char: Character) in
             if (char.id != nil) {
                 self.printName(char)
             }
         })
+        
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.hidden = true
+        
     }
     
     func printName(char: Character) -> Void {
