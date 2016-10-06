@@ -10,8 +10,8 @@ import UIKit
 
 class ComicListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    private let comicZoomPresentAnimationController = ComicZoomPresentAnimationController()
-    private let comicZoomDismissAnimationController = ZoomDismissAnimationController()
+    fileprivate let comicZoomPresentAnimationController = ComicZoomPresentAnimationController()
+    fileprivate let comicZoomDismissAnimationController = ZoomDismissAnimationController()
     
     @IBOutlet var tableView: UITableView!
     
@@ -22,7 +22,7 @@ class ComicListVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.hidden = false
+        self.navigationController?.navigationBar.barTintColor = UIColor.init(red:   3/255, green: 53/255, blue: 70/255, alpha: 1.0)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -30,22 +30,22 @@ class ComicListVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         comicList = MarvelService.sharedInstance.loadedComics
         tableView.reloadData()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return comicList.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let comic = MarvelService.sharedInstance.loadedComics[indexPath.row]
+        let comic = MarvelService.sharedInstance.loadedComics[(indexPath as NSIndexPath).row]
         
-        if let cell = tableView.dequeueReusableCellWithIdentifier("ComicCell") as? ComicCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "ComicCell") as? ComicCell {
             cell.configureCell(comic)
             return cell
         } else {
@@ -53,25 +53,25 @@ class ComicListVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         }
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         if comicList.count > 0 {
             self.tableView.backgroundView = nil
             return 1
         } else {
             
-            let noDataLabel: UILabel = UILabel(frame: CGRectMake(0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height))
+            let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
             noDataLabel.text = "No Data Available"
-            noDataLabel.textColor = UIColor.blackColor()
-            noDataLabel.textAlignment = NSTextAlignment.Center
-            self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+            noDataLabel.textColor = UIColor.black
+            noDataLabel.textAlignment = NSTextAlignment.center
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
             self.tableView.backgroundView = noDataLabel
         }
         return 0
     }
     
     // MARK: - UITableViewDelegate Methods
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: - Animate Table View Cell
@@ -90,10 +90,10 @@ class ComicListVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == comicListSegueIdentifier, let destination = segue.destinationViewController as? ComicDetailVC, comicIndex = tableView.indexPathForSelectedRow?.row {
+        if segue.identifier == comicListSegueIdentifier, let destination = segue.destination as? ComicDetailVC, let comicIndex = (tableView.indexPathForSelectedRow as IndexPath?)?.row {
             selectedItemRect = setSelectedListItemRect()
             destination.comic = comicList[comicIndex]
             destination.transitioningDelegate = self
@@ -102,21 +102,21 @@ class ComicListVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
     
     func setSelectedListItemRect() -> CGRect {
         let selectedRow = tableView.indexPathForSelectedRow
-        let rectOfRow = tableView.rectForRowAtIndexPath(selectedRow!)
+        let rectOfRow = tableView.rectForRow(at: selectedRow!)
         
-        return tableView.convertRect(rectOfRow, toView: self.view)
+        return tableView.convert(rectOfRow, to: self.view)
     }
 
 }
 
 extension ComicListVC: UIViewControllerTransitioningDelegate {
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
         comicZoomPresentAnimationController.originFrame = selectedItemRect
         return comicZoomPresentAnimationController
     }
     
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
         comicZoomDismissAnimationController.destinationFrame = selectedItemRect
         return comicZoomDismissAnimationController

@@ -22,16 +22,16 @@ class HeroDescriptionStyle: UILabel {
         super.awakeFromNib()
     }
     
-    func updateText(text: String) -> Void {
+    func updateText(_ text: String) -> Void {
         // Create New Style
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 8
-        style.alignment = NSTextAlignment.Justified
+        style.alignment = NSTextAlignment.justified
         
         //
         let attributes = [
             NSParagraphStyleAttributeName : style,
-            NSBaselineOffsetAttributeName : NSNumber(float: 0)
+            NSBaselineOffsetAttributeName : NSNumber(value: 0 as Float)
         ]
         self.attributedText = NSAttributedString(string: text, attributes:attributes)
     }

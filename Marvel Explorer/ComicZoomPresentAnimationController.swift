@@ -9,28 +9,27 @@
 import UIKit
 
 class ComicZoomPresentAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
-    var originFrame = CGRectZero
+    var originFrame = CGRect.zero
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.4
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        guard let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey), let containerView = transitionContext.containerView(),
-        let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else {
-            return
-        }
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let fromVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)
+        let containerView = transitionContext.containerView
+        let toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)
         
         let initFrame = originFrame
-        let finalFrame = transitionContext.finalFrameForViewController(toVC)
+        let finalFrame = transitionContext.finalFrame(for: toVC!)
         
-        let snapshot = toVC.view.snapshotViewAfterScreenUpdates(true)
+        let snapshot = toVC?.view.snapshotView(afterScreenUpdates: true)
         
-        snapshot.frame = initFrame
+        snapshot?.frame = initFrame
         
-        containerView.addSubview(toVC.view)
-        containerView.addSubview(snapshot)
-        toVC.view.hidden = true
+        containerView.addSubview((toVC?.view)!)
+        containerView.addSubview(snapshot!)
+        toVC?.view.isHidden = true
         
 //        self.perspectiveTransformForContainerView(containerView)
         
@@ -38,9 +37,9 @@ class ComicZoomPresentAnimationController: NSObject, UIViewControllerAnimatedTra
 
 //        Animation
         
-        let duration = transitionDuration(transitionContext)
+        let duration = transitionDuration(using: transitionContext)
         
-        UIView.animateKeyframesWithDuration(duration, delay: 0, options: .CalculationModeCubic, animations: {
+        UIView.animateKeyframes(withDuration: duration, delay: 0, options: .calculationModeCubic, animations: {
 //            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 1/3, animations: {
 //                fromVC.view.layer.transform = CATransform3DMakeRotation(CGFloat(-M_PI_2), 0.0, 1.0, 0.0)
 //            })
@@ -52,17 +51,17 @@ class ComicZoomPresentAnimationController: NSObject, UIViewControllerAnimatedTra
 //            UIView.addKeyframeWithRelativeStartTime(2/3, relativeDuration: 1/3, animations: {
 //                snapshot.frame = finalFrame
 //            })
-            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 1/3, animations: {
-                snapshot.frame = finalFrame
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/3, animations: {
+                snapshot?.frame = finalFrame
             })
         }) { _ in
-            toVC.view.hidden = false
-            snapshot.removeFromSuperview()
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+            toVC?.view.isHidden = false
+            snapshot?.removeFromSuperview()
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }
     
-    func perspectiveTransformForContainerView(containerView: UIView) {
+    func perspectiveTransformForContainerView(_ containerView: UIView) {
         var transform = CATransform3DIdentity
         transform.m34 = -0.002
         containerView.layer.sublayerTransform = transform

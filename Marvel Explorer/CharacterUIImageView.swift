@@ -25,8 +25,8 @@ class CharacterUIImageView: UIImageView {
         self.clipsToBounds = true
     }
     
-    func createColorBorder(color: UIColor) -> Void {
-        self.layer.borderColor = color.CGColor
+    func createColorBorder(_ color: UIColor) -> Void {
+        self.layer.borderColor = color.cgColor
         self.layer.borderWidth = 1.5
     }
     

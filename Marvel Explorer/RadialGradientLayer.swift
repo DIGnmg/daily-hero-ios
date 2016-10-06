@@ -31,32 +31,31 @@ class RadialGradientLayer: CALayer {
 
 	}
 	
-	var center:CGPoint = CGPointMake(244/2,244/2)
+	var center:CGPoint = CGPoint(x: 244/2,y: 244/2)
 	var radius:CGFloat = 20.0
 	var colors:[CGColor] = [
-		UIColor(red: 251/255, green: 237/255, blue:  33/255, alpha: 1.0).CGColor,
-		UIColor(red: 251/255, green: 179/255, blue: 108/255, alpha: 1.0).CGColor
+		UIColor(red: 251/255, green: 237/255, blue:  33/255, alpha: 1.0).cgColor,
+		UIColor(red: 251/255, green: 179/255, blue: 108/255, alpha: 1.0).cgColor
 	]
 	
-	override func drawInContext(ctx: CGContext) {
+	override func draw(in ctx: CGContext) {
 		
-		CGContextSaveGState(ctx)
+		ctx.saveGState()
 		
 		let colorSpace = CGColorSpaceCreateDeviceRGB()
 		let locations:[CGFloat] = [0.0, 1.0]
-		let gradient = CGGradientCreateWithColors(colorSpace, colors, locations)
+		let gradient = CGGradient(colorsSpace: colorSpace, colors: colors as CFArray, locations: locations)
 		
 		//var startPoint = CGPointMake(0, self.bounds.height)
 		//var endPoint = CGPointMake(self.bounds.width, self.bounds.height)
 		
-		CGContextDrawRadialGradient(
-			ctx, gradient,
-			center, 0.0,
-			center, radius,
-			CGGradientDrawingOptions.DrawsAfterEndLocation
+		ctx.drawRadialGradient(gradient!,
+			startCenter: center, startRadius: 0.0,
+			endCenter: center, endRadius: radius,
+			options: CGGradientDrawingOptions.drawsAfterEndLocation
 		)
 		
-		CGContextRestoreGState(ctx)
+		ctx.restoreGState()
 		
 	}
 	

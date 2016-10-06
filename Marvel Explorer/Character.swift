@@ -10,7 +10,7 @@ import Foundation
 
 class Character: DailyHero {
     
-    private var _comics: [Comic] = [Comic]()
+    fileprivate var _comics: [Comic] = [Comic]()
     
     var comics: [Comic] {
         get {
@@ -26,7 +26,7 @@ class Character: DailyHero {
         self.init(id: nil, name: nil, description: nil, resourceURI: nil, thumbnail: nil)
     }
     
-    func addComics(comics: [Comic]) -> Void {
+    func addComics(_ comics: [Comic]) -> Void {
         self._comics += comics
     }
     

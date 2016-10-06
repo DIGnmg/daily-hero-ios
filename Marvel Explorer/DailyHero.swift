@@ -12,18 +12,18 @@ import UIKit
 class DailyHero {
     
     // id (int, optional): The unique ID of the character resource.
-    private var _id: Int?
+    fileprivate var _id: Int?
     // name (string, optional): The name of the character.
-    private var _name: String?
+    fileprivate var _name: String?
     // description (string, optional): A short bio or description of the character.
-    private var _description: String?
+    fileprivate var _description: String?
     // resourceURI (string, optional): The canonical URL identifier for this resource.
-    private var _resourceURI: String?
+    fileprivate var _resourceURI: String?
     // thumbnail (Image, optional): The representative image for this character.
-    private var _thumbnail: Dictionary<String, String>?
+    fileprivate var _thumbnail: Dictionary<String, String>?
     
     // thumbnail (Image, optional): The representative image for this character.
-    private var _image: UIImage?
+    fileprivate var _image: UIImage?
     
     var id: Int? {
         return self._id
@@ -57,15 +57,15 @@ class DailyHero {
         self._thumbnail = thumbnail
     }
     
-    func getDataFromUrl(completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
+    func getDataFromUrl(_ completion: @escaping ((_ data: Data?, _ response: URLResponse?, _ error: NSError? ) -> Void)) {
         let urlPath = "\(self._thumbnail!["path"]!).\(self._thumbnail!["extension"]!)"
-        let url = NSURL(string: urlPath)
-        NSURLSession.sharedSession().dataTaskWithURL(url!) { (data, response, error) in
+        let url = URL(string: urlPath)
+        URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
             if let imageData = data {
                 self._image = UIImage(data: imageData)
             }
-            completion(data: data, response: response, error: error)
-            }.resume()
+            completion(data, response, error as NSError?)
+            }) .resume()
     }
     
 }

@@ -5,6 +5,5 @@ use_frameworks!
 
 target 'Marvel Explorer' do
   pod 'CryptoSwift'
-  pod 'UIImageColors', '~> 1.0'
+  pod 'UIImageColors', :git => 'https://github.com/jathu/UIImageColors.git'
 end
-

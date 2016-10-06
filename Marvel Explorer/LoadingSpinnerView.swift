@@ -49,7 +49,7 @@ class LoadingSpinnerView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         circlePathLayer.frame = bounds
-        circlePathLayer.path = circlePath().CGPath
+        circlePathLayer.path = circlePath().cgPath
     }
     
     func configure() -> Void {
@@ -57,21 +57,21 @@ class LoadingSpinnerView: UIView {
         
         circlePathLayer.frame = bounds
         circlePathLayer.lineWidth = 2
-        circlePathLayer.fillColor = UIColor.clearColor().CGColor
-        circlePathLayer.strokeColor = UIColor.cyanColor().CGColor
+        circlePathLayer.fillColor = UIColor.clear.cgColor
+        circlePathLayer.strokeColor = UIColor.cyan.cgColor
         
         layer.addSublayer(circlePathLayer)
     }
     
     func circleFrame() -> CGRect {
         var circleFrame = CGRect(x: 0, y: 0, width: 2 * circleRadius, height: 2 * circleRadius)
-        circleFrame.origin.x = CGRectGetMidX(circlePathLayer.bounds)
-        circleFrame.origin.y = CGRectGetMidY(circlePathLayer.bounds)
+        circleFrame.origin.x = circlePathLayer.bounds.midX
+        circleFrame.origin.y = circlePathLayer.bounds.midY
         return circleFrame
     }
     
     func circlePath() -> UIBezierPath {
-        return UIBezierPath(ovalInRect: circleFrame())
+        return UIBezierPath(ovalIn: circleFrame())
     }
 
 }

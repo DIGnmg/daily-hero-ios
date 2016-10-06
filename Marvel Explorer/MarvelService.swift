@@ -13,9 +13,9 @@ class MarvelService {
     
     static let sharedInstance = MarvelService()
     
-    private var _character = Character()
+    fileprivate var _character = Character()
     
-    private var _loadedComics = [Comic]()
+    fileprivate var _loadedComics = [Comic]()
     
     var loadedComics: [Comic] {
         return _loadedComics
@@ -29,7 +29,7 @@ class MarvelService {
         return self._character
     }
     
-    func getDailyHero(callback: (Character) -> Void) -> Void {
+    func getDailyHero(_ callback: @escaping (Character) -> Void) -> Void {
         self.getHero() { (char: Character) in
             callback(self._character)
             self.getComics() { (comics: [Comic]) in
@@ -40,13 +40,13 @@ class MarvelService {
         }
     }
     
-    func getComics(callback: (([Comic]) -> Void)) -> Void {
+    func getComics(_ callback: @escaping (([Comic]) -> Void)) -> Void {
         let urlString = "http://localhost:5000/daily-comics"
         self.makeCall(urlString) { (data, response, error)  in
             if let dataContent = data {
                 do {
                     
-                    let json = try NSJSONSerialization.JSONObjectWithData(dataContent, options: NSJSONReadingOptions.AllowFragments)
+                    let json = try JSONSerialization.jsonObject(with: dataContent, options: JSONSerialization.ReadingOptions.allowFragments)
                     
                     if let data = json as? Dictionary<String, AnyObject> {
                         if let list = data["data"] as? [Dictionary<String, AnyObject>] {
@@ -59,7 +59,7 @@ class MarvelService {
                                         self._loadedComics.append(comic)
                                     })
                                     
-                                    dispatch_async(dispatch_get_main_queue(), {
+                                    DispatchQueue.main.async(execute: {
                                         callback(self._loadedComics)
                                     })
                                 }
@@ -76,29 +76,27 @@ class MarvelService {
         }
     }
     
-    func getHero(callback: ((Character) -> Void )) -> Void {
+    func getHero(_ callback: @escaping ((Character) -> Void )) -> Void {
         let urlString = "http://localhost:5000/daily"
         self.makeCall(urlString) { (data, response, error)  in
             if let dataContent = data {
                 do {
 
-                    let json = try NSJSONSerialization.JSONObjectWithData(dataContent, options: NSJSONReadingOptions.AllowFragments)
+                    let json = try JSONSerialization.jsonObject(with: dataContent, options: JSONSerialization.ReadingOptions.allowFragments) as! Dictionary<String, AnyObject>
+                    
+                    if let apiData = json["data"] {
+                        var charModel: Character = Character()
+                        if let item = apiData[0] as? [String:Any] {
+                            if let id = item["id"] as? Int, let name = item["name"] as? String, let description = item["description"] as? String, let resourceURI = item["resourceURI"] as? String, let thumbnail = item["thumbnail"] as? Dictionary<String, String> {
 
-                    if let data = json as? Dictionary<String, AnyObject> {
-                        if let apiData = data["data"] {
-                            var charModel: Character = Character()
-                            if let item = apiData[0] {
-                                if let id = item["id"] as? Int, let name = item["name"] as? String, let description = item["description"] as? String, let resourceURI = item["resourceURI"] as? String, let thumbnail = item["thumbnail"] as? Dictionary<String, String> {
-
-                                    charModel = Character(id: id, name: name, description: description, resourceURI: resourceURI, thumbnail: thumbnail)
-                                }
+                                charModel = Character(id: id, name: name, description: description, resourceURI: resourceURI, thumbnail: thumbnail)
                             }
-                            self._character = charModel
-                            
-                            dispatch_async(dispatch_get_main_queue(), {
-                                callback(self._character)
-                            })
                         }
+                        self._character = charModel
+                        
+                        DispatchQueue.main.async(execute: {
+                            callback(self._character)
+                        })
                     }
                     
                 } catch {
@@ -108,11 +106,15 @@ class MarvelService {
         }
     }
     
-    func makeCall(url: String, callback: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
-        let url = NSURL(string: url)
-        NSURLSession.sharedSession().dataTaskWithURL(url!) { (data, response, error) in
-            callback(data: data, response: response, error: error)
-            }.resume()
+    func makeCall(_ url: String, callback: @escaping (_ data: Data?, _ response: URLResponse?, _ error: NSError? ) -> Void) {
+        let url = URL(string: url)
+        let request = URLRequest(url: url!)
+        
+        let session = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            callback(data, response, error as NSError?)
+            return
+        }
+        session.resume()
     }
     
 //    internal func makeCall(url: String, callback: ((AnyObject) -> Void)) -> Void {

@@ -10,7 +10,7 @@ import Foundation
 
 class Comic: DailyHero  {
     
-    private var _prices: [Dictionary<String, AnyObject>]?
+    fileprivate var _prices: [Dictionary<String, AnyObject>]?
     
     var prices: [Dictionary<String, AnyObject>]? {
         get {
