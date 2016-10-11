@@ -27,7 +27,7 @@ class Character: DailyHero {
     }
     
     func addComics(_ comics: [Comic]) -> Void {
-        self._comics += comics
+        self._comics = comics
     }
     
 }

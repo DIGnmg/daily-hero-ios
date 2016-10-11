@@ -16,6 +16,7 @@ class ComicZoomPresentAnimationController: NSObject, UIViewControllerAnimatedTra
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        
         let fromVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)
         let containerView = transitionContext.containerView
         let toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)
